@@ -1,17 +1,21 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <HelloWorld/>
+   
+    <Calculator/>
   </div>
+
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import Calculator from './components/Calculator'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    HelloWorld,
+    Calculator
   }
 }
 </script>
@@ -24,5 +28,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+body{
+  background: linear-gradient(to bottom, darkgreen, lightgreen) no-repeat;
 }
 </style>

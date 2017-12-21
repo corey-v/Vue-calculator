@@ -1,37 +1,32 @@
 <template>
     <div class="calcContainer">
-        {{calc}}
-        <div class="calculator">
-            <div class="output">
+		<div class="calculator">
+			<div class="output">
                 <p v-if="output">{{output}}</p>
                 <p v-else>0</p>
             </div>
-            <button class="btn btn-danger" @click="clear">C</button>
-            <button class="btn btn-success" @click="enterOp(4)">/</button>
-            <button class="btn btn-success" @click="enterOp(3)">X</button>
-            <button class="btn btn-danger" @click="del">DEL</button>
-            <br>
-            <button class="btn btn-primary" @click="enterNum(7)">7</button>
-            <button class="btn btn-primary" @click="enterNum(8)">8</button>
-            <button class="btn btn-primary" @click="enterNum(9)">9</button>
-            <button class="btn btn-success">-</button>
-            <br>
-            <button class="btn btn-primary" @click="enterNum(4)">4</button>
-            <button class="btn btn-primary" @click="enterNum(5)">5</button>
-            <button class="btn btn-primary" @click="enterNum(6)">6</button>
-            <button class="btn btn-success" @click="enterOp(1)">+</button>
-            <br>
-            <button class="btn btn-primary" @click="enterNum(1)">1</button>
-            <button class="btn btn-primary" @click="enterNum(2)">2</button>
-            <button class="btn btn-primary" @click="enterNum(3)">3</button>
-            <button class="btn btn-default">&nbsp;</button>
-            <br>
-            <button class="btn btn-primary" @click="enterNum(0)">0</button>
-            <button class="btn btn-primary" @click="addDecimal">.</button>
-            <button class="btn btn-default"> &nbsp;</button>
-            <button class="btn btn-success" @click="sum">=</button>
-        </div>
-    </div>
+			<div @click="clear">C</div>
+			<div @click="enterOp(4)">/</div>
+			<div @click="enterOp(3)">X</div>
+			<div @click="del">DEL</div>
+			<div @click="enterNum(7)">7</div>
+			<div @click="enterNum(8)">8</div>
+			<div @click="enterNum(9)">9</div>
+			<div @click="enterOp(2)">-</div>
+			<div @click="enterNum(4)">4</div>
+			<div @click="enterNum(5)">5</div>
+			<div @click="enterNum(6)">6</div>
+			<div @click="enterOp(1)">+</div>
+			<div @click="enterNum(1)">1</div>
+			<div @click="enterNum(2)">2</div>
+			<div @click="enterNum(3)">3</div>
+			<div></div>
+			<div></div>
+			<div @click="enterNum(0)">0</div>
+			<div @click="addDecimal">.</div>
+			<div @click="sum">=</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -168,7 +163,7 @@ export default {
 .calcContainer{
     background: white;
     min-width: 50%;
-    max-width: 80%;
+    max-width: 60%;
     margin: auto;
     border-radius: 5px;
     box-shadow: 2px 2px 2px black;
@@ -176,12 +171,20 @@ export default {
     margin-bottom: 50px;
 }
 .calculator{
-    min-width: 40%;
-    max-width: 60%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(40px, auto);
+    width: 80%;
     margin: auto;
-    border: 1px solid black; 
 }
-button{
-    margin: 5px auto;
+.calculator>div{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.output{
+    grid-column-start: 1;
+    grid-column-end: 5;
 }
 </style>

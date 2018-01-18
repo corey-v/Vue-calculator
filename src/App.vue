@@ -1,20 +1,28 @@
 <template>
   <div id="app">
+    <a href="https://github.com/corey-v">
+      <img src="./assets/github_icon.png">
+    </a>
+    <a href="https://www.goldeneagleweb.ca">
+      <img src="./assets/gew_icon.png">
+    </a>
+    <a href="https://www.linkedin.com/in/corey-valentyne">
+      <img src="./assets/new_linkedin_icon.png">
+    </a>
+    <br>
     <img src="./assets/logo.png">
-   
+
     <Calculator/>
   </div>
 
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 import Calculator from './components/Calculator'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
     Calculator
   }
 }

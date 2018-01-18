@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="calcContainer">
 		<div class="calculator">
 			<div class="output">
@@ -27,9 +28,11 @@
 			<div @click="sum">=</div>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'Calculator',
   data () {
@@ -45,40 +48,40 @@ export default {
   methods:{
     addDecimal(){
       if (this.decimalAdded == false) {
-        if (this.prevOp != 0) {
-          this.output = '0.';
-        } else {
-          this.output += '.';
+            if (this.prevOp != 0) {
+                this.output = '0.';
+            } else {
+                this.output += '.';
+            }
+            this.decimalAdded = true;
         }
-        this.decimalAdded = true;
-      }
     },
     enterNum(val){
         if (this.currentNum == 0) {
-        if (this.prevOp == 0)
-          this.total = 0;
+            if (this.prevOp == 0)
+                this.total = 0;
 
-        if (this.decimalAdded == true) {
-          this.currentNum = val / 10;
-          this.output += val.toString();
+            if (this.decimalAdded) {
+                this.currentNum = val / 10;
+                this.output += val.toString();
+            } else {
+                this.currentNum = val;
+                this.output = val.toString();
+            }
         } else {
-          this.currentNum = val;
-          this.output = val.toString();
+            if (this.decimalAdded) {
+                if (this.currentNum.toString().indexOf('.') == -1) {
+                    this.currentNum = parseFloat(this.currentNum.toString() + '.' + val.toString());
+                } else {
+                    this.currentNum += val.toString();
+                    this.currentNum = parseFloat(this.currentNum);
+                }
+            } else {
+                this.currentNum *= 10;
+                this.currentNum += val;
+            }
+            this.output += val.toString();
         }
-      } else {
-        if (this.decimalAdded == true) {
-          if (this.currentNum.toString().indexOf('.') == -1) {
-            this.currentNum = parseFloat(this.currentNum.toString() + '.' + val.toString());
-          } else {
-            this.currentNum += val.toString();
-            this.currentNum = parseFloat(this.currentNum);
-          }
-        } else {
-          this.currentNum *= 10;
-          this.currentNum += val;
-        }
-        this.output += val.toString();
-      }
     },
     enterOp(op){
         if (this.total == 0 && this.currentNum == 0) {
@@ -119,49 +122,47 @@ export default {
     },
     sum(){
         switch (this.prevOp) {
-        case 1:
-          this.total += this.currentNum;
-          break;
-        case 2:
-          this.total -= this.currentNum;
-          break;
-        case 3:
-          this.total *= this.currentNum;
-          break;
-        case 4:
-          this.total /= this.currentNum;
-          break;
-        case 0:
-          break;
-      }
-      this.output = this.total.toString();
-      this.prevOp = 0;
-      this.currentNum = 0;
+            case 1:
+                this.total += this.currentNum;
+                break;
+            case 2:
+                this.total -= this.currentNum;
+                break;
+            case 3:
+                this.total *= this.currentNum;
+                break;
+            case 4:
+                this.total /= this.currentNum;
+                break;
+            case 0:
+                break;
+        }
+        this.output = this.total.toString();
+        this.prevOp = 0;
+        this.currentNum = 0;
     },
     del(){
         if (this.currentNum > 0) {
-        if (this.decimalAdded == false) {
-          this.currentNum = parseInt(this.currentNum.toString().slice(0, -1), 10);
-        } else {
-          this.currentNum = parseFloat(this.currentNum.toString().slice(0, -1));
+            if (this.decimalAdded == false) {
+                this.currentNum = parseInt(this.currentNum.toString().slice(0, -1), 10);
+            } else {
+                this.currentNum = parseFloat(this.currentNum.toString().slice(0, -1));
+            }
+            if (isNaN(this.currentNum))
+                this.currentNum = 0;
+                this.output = this.currentNum;
+        } else if (this.currentNum == 0) {
+            this.output = '';
         }
-
-        if (isNaN(this.currentNum))
-          this.currentNum = 0;
-        this.output = this.currentNum;
-      } else if (this.currentNum == 0) {
-        this.output = '';
-      }
     }
   }
-  
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .calcContainer{
-    background: white;
+    background: rgba(255,255,255, 0.8);
     min-width: 50%;
     max-width: 60%;
     margin: auto;
@@ -171,20 +172,38 @@ export default {
     margin-bottom: 50px;
 }
 .calculator{
+    border: 1px solid black;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(40px, auto);
-    width: 80%;
+    grid-column-gap: 10px;
+    grid-row-gap: 1em;
+    min-width: 50%;
+    max-width: 70%;
     margin: auto;
+    background: linear-gradient(to top, rgba(145, 247, 180, 0.2), rgba(81, 235, 133, 0.4)) no-repeat;
 }
 .calculator>div{
     border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: bold;
+}
+.calculator>div:hover{
+    background: lightgreen;
+    transition: 0.3s;
 }
 .output{
     grid-column-start: 1;
     grid-column-end: 5;
+}
+.output p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 32px;
 }
 </style>
